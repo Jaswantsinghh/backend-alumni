@@ -48,3 +48,14 @@ exports.getUsers = async (req, res) => {
         res.status(500).json({ message: 'Error fetching users' });
     }
 };
+
+exports.verifyUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        user.isVerified = true;
+        await user.save();
+        res.status(200).json({ message: 'User verified successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error verifying user' });
+    }
+}
