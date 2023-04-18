@@ -70,3 +70,12 @@ exports.unverifyUser = async (req, res) => {
         res.status(500).json({ message: 'Error unverifying user' });
     }
 }
+
+exports.getVerifiedUsers = async (req, res) => {
+    try {
+        const users = await User.find({ isVerified: true });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users' });
+    }
+}
