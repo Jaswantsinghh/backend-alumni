@@ -59,3 +59,14 @@ exports.verifyUser = async (req, res) => {
         res.status(500).json({ message: 'Error verifying user' });
     }
 }
+
+exports.unverifyUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        user.isVerified = false;
+        await user.save();
+        res.status(200).json({ message: 'User unverified successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error unverifying user' });
+    }
+}
