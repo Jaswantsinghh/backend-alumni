@@ -10,7 +10,7 @@ app.use(cors({
     origin: 'http://localhost:5173'
 }));  
 
-
+app.use('/public/uploads', express.static(__dirname + '/public/uploads/'));
 app.use('/', routes);
 
 app.listen(3000, () => {

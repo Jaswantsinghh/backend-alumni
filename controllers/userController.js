@@ -6,13 +6,13 @@ exports.createUser = async (req, res) => {
     const photos = [];
 
     // handle multiple photo uploads
-    if (req.photos) {
-      req.photos.forEach(file => {
+    if (req.files) {
+      req.files.forEach(file => {
         photos.push(file.filename);
       });
     }
 
-    console.log(photos);
+    console.log(req.files);
 
     const newUser = new User({
         firstName: req.body.firstName,
@@ -78,5 +78,14 @@ exports.getVerifiedUsers = async (req, res) => {
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching users' });
+    }
+}
+
+exports.getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching user' });
     }
 }
