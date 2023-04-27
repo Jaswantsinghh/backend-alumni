@@ -19,7 +19,23 @@ const userSchema = new mongoose.Schema({
   isVerified: {
     type: Boolean,
     default: false
-  }
+  },
+  password: {
+    type: String,
+    default: 'password123'
+  },
+  userType: {
+    type: String,
+    default: 'user'
+  },
+  accountVerified: {
+    type: Boolean,
+    default: false
+  },
+  otp: {
+    type: Number,
+    default: 0
+  },
 });
 
 const User = mongoose.model('User', userSchema);
