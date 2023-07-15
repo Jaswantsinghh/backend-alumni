@@ -10,7 +10,10 @@ const userSchema = new mongoose.Schema({
   address: String,
   country: String,
   pincode: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true,
+  },
   photos: [String],
   twitterProfileUrl: String,
   instagramProfileUrl: String,
@@ -35,6 +38,10 @@ const userSchema = new mongoose.Schema({
   otp: {
     type: Number,
     default: 0
+  },
+  updateRequest: {
+    type: Boolean,
+    default: false
   },
 });
 

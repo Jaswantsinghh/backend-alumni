@@ -77,9 +77,10 @@ exports.createUser = async (req, res) => {
         res.status(500).json({ message: 'Error creating user' });
         return;
     });
-
     await newUser.save();
-    res.status(200).json({ message: 'User created successfully' });
+
+    const user = await User.find({ email: newUser.email });
+    res.status(200).json({ message: 'User created successfully', user: user[0] });
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Error creating user' });
@@ -121,6 +122,7 @@ exports.unverifyUser = async (req, res) => {
 exports.getVerifiedUsers = async (req, res) => {
     try {
         const users = await User.find({ isVerified: true });
+        console.log(users);
         res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching users' });
@@ -139,6 +141,9 @@ exports.getUserById = async (req, res) => {
 exports.otpVerify = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
+        console.log(user.otp);
+        console.log(req.otp);
+        console.log(req.body.otp);
         if (user.otp == req.body.otp) {
             user.accountVerified = true;
             await user.save();
