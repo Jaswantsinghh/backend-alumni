@@ -3,11 +3,14 @@ const bodyParser = require('body-parser');
 const routes = require('./routes');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 const app = express();
 app.use(bodyParser.json());
+dotenv.config();
+
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: process.env.CORS_ORIGIN
 }));  
 
 app.use('/public/uploads', express.static(__dirname + '/public/uploads/'));
@@ -17,7 +20,7 @@ app.listen(3000, () => {
   console.log('Server listening on port 3000');
 });
 
-mongoose.connect('mongodb://localhost:27017/Alumni', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
     })
