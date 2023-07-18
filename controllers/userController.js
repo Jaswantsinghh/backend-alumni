@@ -38,9 +38,10 @@ exports.createUser = async (req, res) => {
     const photos = [];
 
     // handle multiple photo uploads
+    console.log(req.files);
     if (req.files) {
       req.files.forEach(file => {
-        photos.push(file.filename);
+        photos.push(file.key);
       });
     }
 
@@ -64,6 +65,7 @@ exports.createUser = async (req, res) => {
     });
 
     const otp = Math.floor(100000 + Math.random() * 900000);
+    console.log(otp);
     newUser.otp = otp;
     console.log(otp);
     console.log(newUser.email);

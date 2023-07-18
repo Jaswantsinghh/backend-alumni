@@ -17,7 +17,7 @@ app.use('/public/uploads', express.static(__dirname + '/public/uploads/'));
 app.use('/', routes);
 
 app.listen(process.env.PORT || 8080, () => {
-  console.log('Server listening on port 3000');
+  console.log('Server listening on port', process.env.PORT);
 });
 
 mongoose.connect(process.env.MONGODB_URI, {
