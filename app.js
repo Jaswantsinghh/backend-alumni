@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 dotenv.config();
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN
+    origin: "*",
 }));  
 
 app.use('/public/uploads', express.static(__dirname + '/public/uploads/'));
