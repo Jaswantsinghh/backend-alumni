@@ -185,6 +185,7 @@ exports.updateUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
     try {
         const user = await User.find({ email: req.body.email });
+        console.log(user);
         const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         if (user.length > 0) {
             if (user[0].password == req.body.password) {
@@ -195,7 +196,8 @@ exports.loginUser = async (req, res) => {
         }
     }
     catch (error) {
-        res.status(500).json({ message: 'Error logging in user' });
+        res.status(500).json({ message: 'Error logging in user', error: error });
+        console.log(error);
     }
 }
 
