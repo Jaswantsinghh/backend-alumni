@@ -67,7 +67,7 @@ exports.createUser = async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000);
     console.log(otp);
     newUser.otp = otp;
-    console.log(otp);
+    /* console.log(otp);
     console.log(newUser.email);
     const msg = sendEmail(newUser.email, otp);
     sgMail.send(msg)
@@ -78,7 +78,7 @@ exports.createUser = async (req, res) => {
         console.log(error.response.body);
         res.status(500).json({ message: 'Error creating user' });
         return;
-    });
+    }); */
     await newUser.save();
 
     const user = await User.find({ email: newUser.email });
