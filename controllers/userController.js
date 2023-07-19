@@ -23,7 +23,7 @@ const emailTemplate = (otp) => {
 const sendEmail = (email, otp) => {
     const msg = {
         to: email,
-        from: 'jaswantsinghjsn@gmail.com',
+        from: 'jaswant1915040@gndec.ac.in',
         subject: 'Verify your account',
         text: 'Verify your account',
         html: emailTemplate(otp),
