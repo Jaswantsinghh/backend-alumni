@@ -9,6 +9,8 @@ const app = express();
 app.use(bodyParser.json());
 dotenv.config();
 
+app.use(cors());
+
 app.use('/public/uploads', express.static(__dirname + '/public/uploads/'));
 app.use('/', routes);
 
