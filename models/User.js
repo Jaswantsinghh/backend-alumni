@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  updationReq: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const User = mongoose.model('User', userSchema);

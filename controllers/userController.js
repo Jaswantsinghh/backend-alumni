@@ -181,6 +181,7 @@ exports.updateUser = async (req, res) => {
         user.instagramProfileUrl = req.body.instagramProfile;
         user.facebookProfileUrl = req.body.facebookProfile;
         user.about = req.body.aboutMe;
+        user.updationReq = true,
         await user.save();
         res.status(200).json({ message: 'User updated successfully' });
     } catch (error) {
