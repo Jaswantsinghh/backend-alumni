@@ -19,7 +19,7 @@ router.post('/verify/user/:id', otpVerify);
 
 router.post('/login', loginUser);
 
-router.patch('/update/user/:id', updateUser);
+router.patch('/update/user/:id', upload.array('photos', 10), updateUser);
 
 router.delete('/user/:id', deleteUser);
 
