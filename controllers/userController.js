@@ -165,6 +165,15 @@ exports.otpVerify = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
+    const photos = [];
+
+    // handle multiple photo uploads
+    console.log(req.files);
+    if (req.files) {
+      req.files.forEach(file => {
+        photos.push(file.key);
+      });
+    }
     try {
         const user = await User.findById(req.params.id);
         user.firstName = req.body.firstName;
@@ -181,6 +190,7 @@ exports.updateUser = async (req, res) => {
         user.instagramProfileUrl = req.body.instagramProfile;
         user.facebookProfileUrl = req.body.facebookProfile;
         user.about = req.body.aboutMe;
+        user.photos = photos;
         user.updationReq = true,
         await user.save();
         res.status(200).json({ message: 'User updated successfully' });
