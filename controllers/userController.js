@@ -211,14 +211,14 @@ exports.loginUser = async (req, res) => {
     }
 }
 
-exports.deleteUser = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        await user.remove();
+exports.deleteUser = (req, res) => {
+    User.findByIdAndRemove(req.params.id)
+    .then(() => {
         res.status(200).json({ message: 'User deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Error deleting user', error: error });
-    }
+    })
+    .catch((err) => {
+        res.status(500).json({ message: 'Error deleting user', error: err });
+    })
 }
 
 exports.logoutUser = async (req, res) => {
