@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createUser, getUsers, verifyUser, unverifyUser, getVerifiedUsers, getUserById, otpVerify, loginUser, updateUser } = require('./controllers/userController');
+const { createUser, getUsers, verifyUser, unverifyUser, getVerifiedUsers, getUserById, otpVerify, loginUser, updateUser, deleteUser } = require('./controllers/userController');
 const upload = require('./middlewares/multer');
 
 router.post('/register', upload.array('photos', 10), createUser);
@@ -21,6 +21,6 @@ router.post('/login', loginUser);
 
 router.patch('/update/user/:id', updateUser);
 
-router
+router.delete('/user/:id', deleteUser);
 
 module.exports = router;
