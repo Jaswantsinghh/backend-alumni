@@ -45,6 +45,12 @@ exports.createUser = async (req, res) => {
       });
     }
 
+    const existingUser = await User.find({ email: newUser.email });
+
+    if (existingUser.length > 0) {
+        return res.status(409).json({ message: "Email already exists!"});
+    }
+
     const newUser = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
