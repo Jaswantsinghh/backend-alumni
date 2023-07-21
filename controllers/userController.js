@@ -45,7 +45,7 @@ exports.createUser = async (req, res) => {
       });
     }
 
-    const existingUser = await User.find({ email: newUser.email });
+    const existingUser = await User.find({ email: req.body.email });
     console.log(existingUser);
 
     if (existingUser.length > 0) {
