@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   photos: [String],
+  profilePhoto: String,
   twitterProfileUrl: String,
   instagramProfileUrl: String,
   facebookProfileUrl: String,

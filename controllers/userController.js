@@ -34,12 +34,12 @@ const sendEmail = (email, otp) => {
 
 exports.createUser = async (req, res) => {
   try {
-    console.log(req.body);
     const photos = [];
+    let profilePhoto;
 
     // handle multiple photo uploads
-    console.log(req.files);
     if (req.files) {
+        profilePhoto = req.files.profilePhoto;
       req.files.forEach(file => {
         photos.push(file.key);
       });
@@ -64,6 +64,7 @@ exports.createUser = async (req, res) => {
         pincode: req.body.pincode,
         email: req.body.email,
         photos: photos,
+        profilePhoto: profilePhoto,
         twitterProfileUrl: req.body.twitterProfile,
         instagramProfileUrl: req.body.instagramProfile,
         facebookProfileUrl: req.body.facebookProfile,

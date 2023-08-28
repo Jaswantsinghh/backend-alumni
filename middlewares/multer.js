@@ -13,14 +13,6 @@ let space = new AWS.S3({
 
 const bucketName = process.env.DO_SPACES_NAME;
 
-// AWS.config.update({
-//   accessKeyId: 'YOUR_ACCESS_KEY',
-//   secretAccessKey: 'YOUR_SECRET_ACCESS_KEY',
-//   endpoint: 'https://YOUR_ENDPOINT.digitaloceanspaces.com', // Replace YOUR_ENDPOINT with your DigitalOcean Spaces endpoint
-// });
-
-// const s3 = new AWS.S3();
-
 const storage = multerS3({
   s3: space,
   bucket: bucketName, // Replace YOUR_BUCKET_NAME with your DigitalOcean Spaces bucket name
@@ -48,4 +40,23 @@ const upload = multer({
   }
 });
 
-module.exports = upload;
+const deletePhotosFromBucket = async (filenames) => {
+  try {
+    const deleteParams = {
+      Bucket: bucketName,
+      Delete: {
+        Objects: filenames.map((filename) => ({ Key: filename })),
+        Quiet: false,
+      },
+    };
+
+    const result = await space.deleteObjects(deleteParams).promise();
+    console.log('Successfully deleted photos:', result.Deleted);
+    return result.Deleted;
+  } catch (error) {
+    console.error('Error deleting photos:', error);
+    throw error;
+  }
+};
+
+module.exports = { upload, deletePhotosFromBucket };
