@@ -3,7 +3,9 @@ const router = express.Router();
 const { createUser, getUsers, verifyUser, unverifyUser, getVerifiedUsers, getUserById, otpVerify, loginUser, updateUser, deleteUser } = require('./controllers/userController');
 const { upload } = require('./middlewares/multer');
 
-router.post('/register', upload.array('photos', 10), upload.single('profilePhoto'), createUser);
+const uploadMultiple = upload.fields([{ name: 'photos', maxCount: 10 }, { name: 'profilePhoto', maxCount: 1 }]);
+
+router.post('/register', uploadMultiple, createUser);
 
 router.get('/users', getUsers);
 

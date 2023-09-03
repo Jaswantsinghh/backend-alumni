@@ -36,19 +36,21 @@ exports.createUser = async (req, res) => {
   try {
     const photos = [];
     let profilePhoto;
-
     // handle multiple photo uploads
-    if (req.files) {
-        profilePhoto = req.files.profilePhoto;
-      req.files.forEach(file => {
+    if (req?.files?.photos) {
+        // profilePhoto = req.files.profilePhoto;
+      req?.files?.photos.forEach(file => {
         photos.push(file.key);
       });
     }
 
-    const existingUser = await User.find({ email: req.body.email });
-    console.log(existingUser);
+    if (req?.files?.profilePhoto) {
+        profilePhoto = req.files.profilePhoto[0].key;
+    }
 
-    if (existingUser.length > 0) {
+    const existingUser = await User.find({ email: req.body.email });
+
+    if (req?.body?.email && existingUser.length > 0) {
         return res.status(409).json({ message: "Email already exists!"});
     }
 
